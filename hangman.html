@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hangman!</title>
+		<meta charset="UTF-8">
+	</head>
+	<style>
+		#hangman {
+			background-color: green;
+			border: none;
+			color: white;
+			padding: 200px 200px;
+			font-size: 100px;
+		}
+
+	</style>
+	<body>
+		<button type="button" onclick="hangman()" id="hangman"> Play hangman! </button>
+		<script>
+			function hangman() {
+				var words = ["javascript","fish","basketball","football","php","and","amazing","dinner","phone","mrbeast"];
+				var word = words[Math.floor(Math.random() * words.length)];
+				var answerArray = [];
+				for(var i = 0; i < word.length; i++) {
+					answerArray[i] = "_";
+				}
+				var remainingLetters = word.length;
+				var attempts = 10;
+	
+				while(remainingLetters > 0 && attempts > 0)
+				{
+					alert(answerArray.join(" ") + "  " + attempts + " attempts left");
+					var guess = prompt("Guess a letter, or click Cancel to stop playing.");
+					var isWrong = 1;
+					if(guess === null) {
+						break;
+					} else if(guess.length !== 1) {
+						alert("Please enter a single letter.");
+						isWrong = 0;
+					} else {
+						for(var j = 0; j < word.length; j++){
+							if(word[j] === guess) {
+								answerArray[j] = guess;
+								remainingLetters--;
+								isWrong = 0;
+							}
+						}
+					}
+					if(isWrong === 1) {
+						attempts--;
+					}
+				}
+				alert(answerArray.join(" ") + "  " + attempts + " attempts left");
+				alert("The answer was " + word);
+			}
+		</script>
+	</body>
+</html>
